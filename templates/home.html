@@ -1,0 +1,838 @@
+
+{% extends "layout.html" %}
+{% block content %}
+        <!-- Start Main Banner Area -->
+        <div class="main-banner"> 
+            <div class="main-banner-item">
+                <div class="d-table">
+                    <div class="d-table-cell">
+                        <div class="container-fluid">
+                            <div class="row align-items-center">
+                                <div class="col-lg-6">
+                                    <div class="main-banner-content">
+                                        <span>Play, Learn and Grow</span>
+                                        {% with messages = get_flashed_messages(with_categories=true) %}
+                                        {% if messages %}
+                                        {% for category, message in messages %}
+                                        <div class="alert alert-{{ category }}">
+                                        {{ message }}
+                                        </div>
+                                        {% endfor %}
+                                        {% endif %}
+                                        {% endwith %}
+                                        <h1>Empowering Student Knowledge</h1>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
+
+                                        <div class="banner-btn">
+                                            <a href="#" class="default-btn">
+                                                Learn More
+                                            </a>
+                                            <a href="#" class="optional-btn">
+                                                Find Out More
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="main-banner-image">
+                                        <img data-cfsrc="{{url_for('static',filename='assets/img/main-banner/education-girl.png')}}" alt="image" style="display:none;visibility:hidden;"><img src="{{url_for('static',filename='assets/img/main-banner/education-girl.png')}}" alt="image">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-banner-shape">
+                <div class="banner-bg-shape">
+                    <img data-cfsrc="{{url_for('static',filename='assets/img/main-banner/banner-bg-shape-1.png')}}" class="white-image" alt="image" style="display:none;visibility:hidden;"><img src="{{url_for('static',filename='assets/img/main-banner/banner-bg-shape-1.png')}}" class="white-image" alt="image">
+                    <img data-cfsrc="{{url_for('static',filename='assets/img/main-banner/banner-bg-shape-1-dark.png')}}" class="black-image" alt="image" style="display:none;visibility:hidden;"><img src="{{url_for('static',filename='assets/img/main-banner/banner-bg-shape-1-dark.png')}}" class="black-image" alt="image">
+                </div>
+
+                <div class="shape-1">
+                    <img data-cfsrc="{{url_for('static',filename='assets/img/main-banner/banner-shape-1.png')}}" alt="image" style="display:none;visibility:hidden;"><img src="{{url_for('static',filename='assets/img/main-banner/banner-shape-1.png')}}" alt="image"></noscript>
+                </div>
+
+                <div class="shape-2">
+                    <img data-cfsrc="{{url_for('static',filename='assets/img/main-banner/banner-shape-2.png')}}" alt="image" style="display:none;visibility:hidden;"><img src="{{url_for('static',filename='assets/img/main-banner/banner-shape-2.png')}}" alt="image">
+                </div>
+
+                <div class="shape-3">
+                    <img data-cfsrc="{{url_for('static',filename='assets/img/main-banner/banner-shape-3.png')}}" alt="image" style="display:none;visibility:hidden;"><img src="{{url_for('static',filename='assets/img/main-banner/banner-shape-3.png')}}" alt="image">
+                </div>
+
+                <div class="shape-4">
+                    <img data-cfsrc="assets/img/main-banner/banner-shape-4.png" alt="image" style="display:none;visibility:hidden;"><img src="assets/img/main-banner/banner-shape-4.png" alt="image">
+                </div>
+            </div>
+        </div>
+        <!-- End Main Banner Area -->
+
+        <!-- Start Who We Are Area -->
+        <section class="who-we-are ptb-100">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="who-we-are-image">
+                            <img data-cfsrc="{{url_for('static',filename='assets/img/who-we-are/who-we-are.jpg')}}" alt="image" style="display:none;visibility:hidden;"><noscript><img src="{{url_for('static',filename='assets/img/who-we-are/who-we-are.jpg')}}" alt="image"></noscript>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="who-we-are-content">
+                            <span>Who We Are</span>
+                            <h3>Kindergarten and Childhood is Our Passion</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+                            <ul class="who-we-are-list">
+                                <li>
+                                    <span>1</span>
+                                    Homelike Environment
+                                </li>
+                                <li>
+                                    <span>2</span>
+                                    Quality Educators
+                                </li>
+                                <li>
+                                    <span>3</span>
+                                    Safety and Security
+                                </li>
+                                <li>
+                                    <span>4</span>
+                                    Play to Learn
+                                </li>
+                            </ul>
+                            <div class="who-we-are-btn">
+                                <a href="#" class="default-btn">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="who-we-are-shape">
+                <img data-cfsrc="assets/img/who-we-are/who-we-are-shape.png" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/who-we-are/who-we-are-shape.png" alt="image"></noscript>
+            </div>
+        </section>
+        <!-- End Who We Are Area -->
+
+        <!-- Start Class Area -->
+        <section class="class-area bg-fdf6ed pt-100 pb-70">
+            <div class="container">
+                <div class="section-title">
+                    <span>Classes</span>
+                    <h2>Popular Classes</h2>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="single-class">
+                            <div class="class-image">
+                                <a href="#">
+                                    <img data-cfsrc="assets/img/class/class-1.jpg" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/class/class-1.jpg" alt="image"></noscript>
+                                </a>
+                            </div>
+
+                            <div class="class-content">
+                                <div class="price">$880</div>
+                                <h3>
+                                    <a href="#">Color Matching</a>
+                                </h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+                                <ul class="class-list">
+                                    <li>
+                                        <span>Age:</span>
+                                        3-5 Year
+                                    </li>
+                                    <li>
+                                        <span>Time:</span>
+                                        8-10 AM
+                                    </li>
+                                    <li>
+                                        <span>Seat:</span>
+                                        25
+                                    </li>
+                                </ul>
+
+                                <div class="class-btn">
+                                    <a href="#" class="default-btn">Join Class</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="single-class">
+                            <div class="class-image">
+                                <a href="#">
+                                    <img data-cfsrc="assets/img/class/class-2.jpg" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/class/class-2.jpg" alt="image"></noscript>
+                                </a>
+                            </div>
+
+                            <div class="class-content">
+                                <div class="price">$790</div>
+                                <h3>
+                                    <a href="#">Learning Disciplines</a>
+                                </h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+                                <ul class="class-list">
+                                    <li>
+                                        <span>Age:</span>
+                                        3-5 Year
+                                    </li>
+                                    <li>
+                                        <span>Time:</span>
+                                        8-10 AM
+                                    </li>
+                                    <li>
+                                        <span>Seat:</span>
+                                        25
+                                    </li>
+                                </ul>
+
+                                <div class="class-btn">
+                                    <a href="#" class="default-btn">Join Class</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 offset-lg-0 offset-md-3">
+                        <div class="single-class">
+                            <div class="class-image">
+                                <a href="#">
+                                    <img data-cfsrc="assets/img/class/class-3.jpg" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/class/class-3.jpg" alt="image"></noscript>
+                                </a>
+                            </div>
+
+                            <div class="class-content">
+                                <div class="price">$590</div>
+                                <h3>
+                                    <a href="#">Drawing</a>
+                                </h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+                                <ul class="class-list">
+                                    <li>
+                                        <span>Age:</span>
+                                        3-5 Year
+                                    </li>
+                                    <li>
+                                        <span>Time:</span>
+                                        8-10 AM
+                                    </li>
+                                    <li>
+                                        <span>Seat:</span>
+                                        25
+                                    </li>
+                                </ul>
+
+                                <div class="class-btn">
+                                    <a href="#" class="default-btn">Join Class</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="class-shape">
+                <div class="shape-1">
+                    <img data-cfsrc="assets/img/class/class-shape-1.png" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/class/class-shape-1.png" alt="image"></noscript>
+                </div>
+                <div class="shape-2">
+                    <img data-cfsrc="assets/img/class/class-shape-2.png" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/class/class-shape-2.png" alt="image"></noscript>
+                </div>
+            </div>
+        </section>
+        <!-- End Class Area -->
+
+        <!-- Start Value Area -->
+        <section class="value-area ptb-100">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="value-image">
+                            <img data-cfsrc="assets/img/value/value-1.png" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/value/value-1.png" alt="image"></noscript>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="value-item">
+                            <div class="value-content">
+                                <span>Our Core Values</span>
+                                <h3>We are Refunding Early Childcare Education</h3>
+                            </div>
+
+                            <div class="value-inner-content">
+                                <div class="number">
+                                    <span>01</span>
+                                </div>
+                                <h4>Active Learning</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+
+                            <div class="value-inner-content">
+                                <div class="number">
+                                    <span class="bg-2">02</span>
+                                </div>
+                                <h4>Safe Environment</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+
+                            <div class="value-inner-content">
+                                <div class="number">
+                                    <span class="bg-3">03</span>
+                                </div>
+                                <h4>Fully Equipment</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="value-shape">
+                <div class="shape-1">
+                    <img data-cfsrc="assets/img/value/value-shape-1.png" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/value/value-shape-1.png" alt="image"></noscript>
+                </div>
+                <div class="shape-2">
+                    <img data-cfsrc="assets/img/value/value-shape-2.png" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/value/value-shape-2.png" alt="image"></noscript>
+                </div>
+                <div class="shape-3">
+                    <img data-cfsrc="assets/img/value/value-shape-3.png" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/value/value-shape-3.png" alt="image"></noscript>
+                </div>
+            </div>
+        </section>
+        <!-- End Value Area -->
+
+        <!-- Start Teacher Area -->
+        <section class="teacher-area bg-ffffff pt-100 pb-70">
+            <div class="container-fluid">
+                <div class="section-title">
+                    <span>Our Core Teacher</span>
+                    <h2>Meet Our Teacher</h2>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="single-teacher">
+                            <div class="image">
+                                <img data-cfsrc="assets/img/teacher/teacher-1.jpg" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/teacher/teacher-1.jpg" alt="image"></noscript>
+
+                                <ul class="social">
+                                    <li>
+                                        <a href="#" target="_blank">
+                                            <i class='bx bxl-facebook'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" target="_blank">
+                                            <i class='bx bxl-twitter'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" target="_blank">
+                                            <i class='bx bxl-linkedin'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" target="_blank">
+                                            <i class='bx bxl-instagram'></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="content">
+                                <h3>Glims Bond</h3>
+                                <span>Music Teacher</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="single-teacher">
+                            <div class="image">
+                                <img data-cfsrc="assets/img/teacher/teacher-2.jpg" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/teacher/teacher-2.jpg" alt="image"></noscript>
+
+                                <ul class="social">
+                                    <li>
+                                        <a href="#" target="_blank">
+                                            <i class='bx bxl-facebook'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" target="_blank">
+                                            <i class='bx bxl-twitter'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" target="_blank">
+                                            <i class='bx bxl-linkedin'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" target="_blank">
+                                            <i class='bx bxl-instagram'></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="content">
+                                <h3>Sherlock Bin</h3>
+                                <span>Art Teacher</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="single-teacher">
+                            <div class="image">
+                                <img data-cfsrc="assets/img/teacher/teacher-3.jpg" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/teacher/teacher-3.jpg" alt="image"></noscript>
+
+                                <ul class="social">
+                                    <li>
+                                        <a href="#" target="_blank">
+                                            <i class='bx bxl-facebook'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" target="_blank">
+                                            <i class='bx bxl-twitter'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" target="_blank">
+                                            <i class='bx bxl-linkedin'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" target="_blank">
+                                            <i class='bx bxl-instagram'></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="content">
+                                <h3>Priestly Herbart</h3>
+                                <span>Math Teacher</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="single-teacher">
+                            <div class="image">
+                                <img data-cfsrc="assets/img/teacher/teacher-4.jpg" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/teacher/teacher-4.jpg" alt="image"></noscript>
+
+                                <ul class="social">
+                                    <li>
+                                        <a href="#" target="_blank">
+                                            <i class='bx bxl-facebook'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" target="_blank">
+                                            <i class='bx bxl-twitter'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" target="_blank">
+                                            <i class='bx bxl-linkedin'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" target="_blank">
+                                            <i class='bx bxl-instagram'></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="content">
+                                <h3>Smith Broke</h3>
+                                <span>English Teacher</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Teacher Area -->
+
+        <!-- Start Testimonials Area -->
+        <section class="testimonials-area pt-100 pb-100">
+            <div class="container">
+                <div class="section-title">
+                    <span>Testimonials</span>
+                    <h2>What Parents Say About Us</h2>
+                </div>
+
+                <div class="testimonials-slides owl-carousel owl-theme">
+                    <div class="testimonials-item">
+                        <div class="testimonials-item-box">
+                            <div class="icon">
+                                <i class='bx bxs-quote-left'></i>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
+                            <div class="info-box">
+                                <h3>Glims Bond</h3>
+                                <span>Music Teacher</span>
+                            </div>
+                        </div>
+                        <div class="testimonials-image">
+                            <img data-cfsrc="assets/img/testimonials/testimonials-1.png" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/testimonials/testimonials-1.png" alt="image"></noscript>
+                        </div>
+                    </div>
+
+                    <div class="testimonials-item">
+                        <div class="testimonials-item-box">
+                            <div class="icon">
+                                <i class='bx bxs-quote-left'></i>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
+                            <div class="info-box">
+                                <h3>Sherlock Bin</h3>
+                                <span>Art Teacher</span>
+                            </div>
+                        </div>
+                        <div class="testimonials-image">
+                            <img data-cfsrc="assets/img/testimonials/testimonials-2.png" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/testimonials/testimonials-2.png" alt="image"></noscript>
+                        </div>
+                    </div>
+
+                    <div class="testimonials-item">
+                        <div class="testimonials-item-box">
+                            <div class="icon">
+                                <i class='bx bxs-quote-left'></i>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
+                            <div class="info-box">
+                                <h3>Priestly Herbart</h3>
+                                <span>Math Teacher</span>
+                            </div>
+                        </div>
+                        <div class="testimonials-image">
+                            <img data-cfsrc="assets/img/testimonials/testimonials-3.png" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/testimonials/testimonials-3.png" alt="image"></noscript>
+                        </div>
+                    </div>
+
+                    <div class="testimonials-item">
+                        <div class="testimonials-item-box">
+                            <div class="icon">
+                                <i class='bx bxs-quote-left'></i>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
+                            <div class="info-box">
+                                <h3>Glims Bond</h3>
+                                <span>Music Teacher</span>
+                            </div>
+                        </div>
+                        <div class="testimonials-image">
+                            <img data-cfsrc="assets/img/testimonials/testimonials-1.png" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/testimonials/testimonials-1.png" alt="image"></noscript>
+                        </div>
+                    </div>
+
+                    <div class="testimonials-item">
+                        <div class="testimonials-item-box">
+                            <div class="icon">
+                                <i class='bx bxs-quote-left'></i>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
+                            <div class="info-box">
+                                <h3>Sherlock Bin</h3>
+                                <span>Art Teacher</span>
+                            </div>
+                        </div>
+                        <div class="testimonials-image">
+                            <img data-cfsrc="assets/img/testimonials/testimonials-2.png" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/testimonials/testimonials-2.png" alt="image"></noscript>
+                        </div>
+                    </div>
+
+                    <div class="testimonials-item">
+                        <div class="testimonials-item-box">
+                            <div class="icon">
+                                <i class='bx bxs-quote-left'></i>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
+                            <div class="info-box">
+                                <h3>Priestly Herbart</h3>
+                                <span>Math Teacher</span>
+                            </div>
+                        </div>
+                        <div class="testimonials-image">
+                            <img data-cfsrc="assets/img/testimonials/testimonials-3.png" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/testimonials/testimonials-3.png" alt="image"></noscript>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Testimonials Area -->
+        
+        <!-- Start Event Area -->
+        <section class="event-area bg-ffffff pt-100 pb-70">
+            <div class="container">
+                <div class="section-title">
+                    <span>Events</span>
+                    <h2>Upcoming Events</h2>
+                </div>
+
+                <div class="event-box-item">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <div class="event-image">
+                                <a href="#"><img data-cfsrc="assets/img/event/event-1.png" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/event/event-1.png" alt="image"></noscript></a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="event-content">
+                                <h3>
+                                    <a href="#">Annual Cultural Programme</a>
+                                </h3>
+                                <ul class="event-list">
+                                    <li>
+                                        <i class='bx bx-time'></i>
+                                        8:00 AM - 10:00 PM
+                                    </li>
+                                    <li>
+                                        <i class='bx bxs-map'></i>
+                                        New York 56 Glassford Street Glasgow
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="event-date">
+                                <h4>12</h4>
+                                <span>September</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-box-item">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <div class="event-image">
+                                <a href="#"><img data-cfsrc="assets/img/event/event-2.png" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/event/event-2.png" alt="image"></noscript></a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="event-content">
+                                <h3>
+                                    <a href="#">World Kids Day</a>
+                                </h3>
+                                <ul class="event-list">
+                                    <li>
+                                        <i class='bx bx-time'></i>
+                                        8:00 AM - 10:00 PM
+                                    </li>
+                                    <li>
+                                        <i class='bx bxs-map'></i>
+                                        New York 56 Glassford Street Glasgow
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="event-date">
+                                <h4>18</h4>
+                                <span>January</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-box-item">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <div class="event-image">
+                                <a href="#"><img data-cfsrc="assets/img/event/event-3.png" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/event/event-3.png" alt="image"></noscript></a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="event-content">
+                                <h3>
+                                    <a href="#">World Drawing Day</a>
+                                </h3>
+                                <ul class="event-list">
+                                    <li>
+                                        <i class='bx bx-time'></i>
+                                        8:00 AM - 10:00 PM
+                                    </li>
+                                    <li>
+                                        <i class='bx bxs-map'></i>
+                                        New York 56 Glassford Street Glasgow
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="event-date">
+                                <h4>25</h4>
+                                <span>March</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-box-item">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <div class="event-image">
+                                <a href="#"><img data-cfsrc="assets/img/event/event-4.png" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/event/event-4.png" alt="image"></noscript></a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="event-content">
+                                <h3>
+                                    <a href="#">Teachers Day</a>
+                                </h3>
+                                <ul class="event-list">
+                                    <li>
+                                        <i class='bx bx-time'></i>
+                                        8:00 AM - 10:00 PM
+                                    </li>
+                                    <li>
+                                        <i class='bx bxs-map'></i>
+                                        New York 56 Glassford Street Glasgow
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="event-date">
+                                <h4>30</h4>
+                                <span>April</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Event Area -->
+
+        <!-- Start Blog Area -->
+        <section class="blog-area pt-100 pb-70">
+            <div class="container">
+                <div class="section-title">
+                    <span>News and Blog</span>
+                    <h2>Latest News</h2>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="single-blog-item">
+                            <div class="blog-image">
+                                <a href="#">
+                                    <img data-cfsrc="assets/img/blog/blog-1.jpg" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/blog/blog-1.jpg" alt="image"></noscript>
+                                </a>
+                            </div>
+
+                            <div class="blog-content">
+                                <ul class="post-meta">
+                                    <li>
+                                        <span>By Admin:</span>
+                                        <a href="#">Jack John</a>
+                                    </li>
+                                    <li>
+                                        <span>Date:</span>
+                                        25 Dec 2022
+                                    </li>
+                                </ul>
+                                <h3>
+                                    <a href="blog-details.html">Red Green Color Blindness</a>
+                                </h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+                                <div class="blog-btn">
+                                    <a href="#" class="default-btn">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="single-blog-item">
+                            <div class="blog-image">
+                                <a href="#">
+                                    <img data-cfsrc="assets/img/blog/blog-2.jpg" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/blog/blog-2.jpg" alt="image"></noscript>
+                                </a>
+                            </div>
+
+                            <div class="blog-content">
+                                <ul class="post-meta">
+                                    <li>
+                                        <span>By Admin:</span>
+                                        <a href="#">Glims Bond</a>
+                                    </li>
+                                    <li>
+                                        <span>Date:</span>
+                                        26 Dec 2022
+                                    </li>
+                                </ul>
+                                <h3>
+                                    <a href="blog-details.html">8 Ways to Learning Lesson</a>
+                                </h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+                                <div class="blog-btn">
+                                    <a href="#" class="default-btn">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 offset-lg-0 offset-md-3">
+                        <div class="single-blog-item">
+                            <div class="blog-image">
+                                <a href="#">
+                                    <img data-cfsrc="assets/img/blog/blog-3.jpg" alt="image" style="display:none;visibility:hidden;"><noscript><img src="assets/img/blog/blog-3.jpg" alt="image"></noscript>
+                                </a>
+                            </div>
+
+                            <div class="blog-content">
+                                <ul class="post-meta">
+                                    <li>
+                                        <span>By Admin:</span>
+                                        <a href="#">Smith Broke</a>
+                                    </li>
+                                    <li>
+                                        <span>Date:</span>
+                                        27 Dec 2022
+                                    </li>
+                                </ul>
+                                <h3>
+                                    <a href="blog-details.html">Full-Day Session With Activities</a>
+                                </h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+                                <div class="blog-btn">
+                                    <a href="#" class="default-btn">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Blog Area -->
+
+      
+        {% endblock content %}
