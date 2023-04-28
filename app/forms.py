@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm # FlaskForm is a class that inherits from Form
 from wtforms import StringField, PasswordField, SubmitField, BooleanField # StringField is a class that represents an <input type="text"> HTML element
-from wtforms.validators import DataRequired, Length, Email, EqualTo # DataRequired is a class that represents a validator that checks that the field is not submitted empty
-
+from wtforms.validators import DataRequired, Length, Email, EqualTo ,ValidationError# DataRequired is a class that represents a validator that checks that the field is not submitted empty
+from app.models import User
 # class registration form
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
@@ -16,6 +16,15 @@ class RegistrationForm(FlaskForm):
 
     submit = SubmitField('Sign Up')
     # SubmitField() is a button that submits the form
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user:
+            raise ValidationError('That username is taken. Please choose a different one.')
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user:
+            raise ValidationError('That email is taken. Please choose a different one.')
 
 # class login form
 class LoginForm(FlaskForm):

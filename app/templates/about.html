@@ -1,0 +1,111 @@
+{% extends "layout.html" %}
+{% block content %}
+
+        <!-- Start Page Banner -->
+        <div class="page-banner-area item-bg3">
+            <div class="d-table">
+                <div class="d-table-cell">
+                    <div class="container">
+                        <div class="page-banner-content">
+                            <h2>Generate Images from word problems</h2>
+                            <ul>
+                                <li>
+                                    <a href="index.html">Home</a>
+                                </li>
+                                <li>Login</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Page Banner -->
+    <div class="container">
+      <h1 class="mt-5 mb-3">Image Generator</h1>
+      <!---
+      <form method="POST" class="mb-5">
+        <div class="form-group">
+          <label for="input-text">Input Text:</label>
+          <input type="text" class="form-control" id="text" name="text">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Generate Image</button>
+      </form>
+      {% if img_url %}
+      <div class="text-center">
+        <img src="{{ img_url }}" class="img-fluid" alt="Generated Image">
+      </div>
+      {% endif %}
+    </div>
+
+-->
+<form method="POST" enctype="multipart/form-data" class="mb-5">
+    <div class="form-group">
+        <label for="problem_image">Upload Image:</label>
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="problem_image" name="problem_image">
+            <label class="custom-file-label" for="problem_image">Choose file</label>
+        </div>
+        </div>
+    <div class="form-group">
+        <label for="text">Input Text:</label>
+        <input type="text" class="form-control" id="text" name="text"  value="{{ problem_text }}">
+    </div>
+    <br>
+    <div style="display: flex; align-items: center;">
+        <button type="submit" class="btn btn-primary" onclick="startTimer()">Generate Or Upload Image</button>
+        <div style="margin-left: 10px;" id="timer"></div>
+      
+    </div>
+      
+      
+</form>
+
+{% if img_url %}
+<div class="text-center">
+  <img src="{{ img_url }}" class="img-fluid" alt="Generated Image">
+</div>
+<form action="/answer" method="POST">
+<h1 class="mt-5 mb-3">Give an answer :</h1>
+<input type="text" class="form-control" id="answer" name="answer" >
+<input type="hidden" name="problem_text" value="{{problem_text}}">
+<button type="submit" class="btn btn-primary">Answer</button>
+</form>
+{% endif %}
+
+
+</div>
+
+   
+    
+
+
+{% block css %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+{% endblock %}
+{% block js %}
+       <script>
+		function startTimer() {
+			document.getElementById("timer").style.display = "block";
+
+			var timeleft = 40;
+			var downloadTimer = setInterval(function(){
+			  document.getElementById("timer").innerHTML = "The image will be generated after: " + timeleft + " ( think of a solution in the meanwhile)";
+			  timeleft -= 1;
+			  if(timeleft <= 0){
+			    clearInterval(downloadTimer);
+			    document.getElementById("timer").innerHTML = "Time is up! The image will be displayed soon !";
+			    document.getElementById("timer").style.color = "red";
+			  }
+			}, 1000);
+		}
+
+</script>
+   {% endblock %}    <!-- Latest compiled and minified CSS -->
+
+
+   {% endblock %}
+
+
+
+    
