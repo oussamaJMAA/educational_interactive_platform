@@ -21,7 +21,6 @@ import os
 import openai
 import base64
 import requests
-openai.api_key = "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"
 
 UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
