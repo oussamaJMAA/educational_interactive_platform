@@ -1,5 +1,5 @@
 import openai
-openai.api_key = "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"
+openai.api_key = "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"
 def get_result_of_answer(question,answer):
     response = openai.Completion.create(
     model="text-davinci-003",
@@ -24,7 +24,7 @@ def get_result_of_answer(question,answer):
     rep = response2.choices[0].text.replace('\n','')
     print("true answer:",rep)
     if rep == answer:
-        return True
+        return (True,rep)
     else:
-        return False
-print(get_result_of_answer("A cake cost 8p. Santa wants to buy 5 cakes. How much will it cost him","40"))
+        return (False,rep)
+print(get_result_of_answer("If you have 3 cookies and you eat one cookie, how many cookies do you have left?","2")[0])

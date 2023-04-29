@@ -309,8 +309,10 @@ window.__mirage2 = {petok:"LiLfn1.dfjT27Mh_JtBAzkERafQSYQeVDUOtyrhqYIw-1800-0"};
                                     {% if current_user.is_authenticated %}
                                     <div style="display:flex">
                                     <p style="margin-top: 10px; margin-right:5px;">Hello {{current_user.username}}</p>
-                                    <a href="{{url_for('logout')}}" class="default-btn">Logout</a>
+                                    <p style="margin-left:10px; margin-top: 10px; margin-right: 5px;">Level : {{current_user.level}}</p>
+                                    <a href="{{url_for('logout')}}" class="default-btn">Logout</a>                               
                                 </div>
+
                                     {% else %}
                                     <div style="display:flex">
                                 

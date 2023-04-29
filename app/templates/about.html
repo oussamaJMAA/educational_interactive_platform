@@ -63,14 +63,46 @@
 
 {% if img_url %}
 <div class="text-center">
-  <img src="{{ img_url }}" class="img-fluid" alt="Generated Image">
+  <img src="{{ img_url }}" class="img-fluid" alt="Generated Image" height="300px" width="300px">
 </div>
 <form action="/answer" method="POST">
+  <input type="hidden" name="img_url1" value="{{ img_url }}">
 <h1 class="mt-5 mb-3">Give an answer :</h1>
-<input type="text" class="form-control" id="answer" name="answer" >
-<input type="hidden" name="problem_text" value="{{problem_text}}">
+{% if is_correct == "False" %}
+
+    <input type="text" style="background-color: #ffdddd;"class="form-control is-invalid" id="answer" name="answer" value="{{ answer_text }}" >
+   <br>
+   
+    <h4 class="alert alert-success">The correct answer is: {{ correct_answer }}</h4>
+    <div class="mt-4">
+      <a href="/about" class="btn btn-primary">Try Again</a>
+    </div>
+     
+    {% elif is_correct == "True" %}
+
+    <input type="text" id="answer" name="answer" value="{{ answer_text }}" >
+   <br>
+   
+    <h4 class="alert alert-success">Good Job !</h4>
+    <div class="mt-4">
+      <a href="/about" class="btn btn-primary">Retry</a>
+    </div>
+    
+  
+    
+{% else %}
+    <input type="text" class="form-control" id="answer" name="answer" value="{{ answer_text }}" >
+    <input type="hidden" name="problem_text" value="{{problem_text}}">
 <button type="submit" class="btn btn-primary">Answer</button>
 </form>
+{% endif %}
+
+<form action="{{ url_for('feedback') }}" method="POST">
+  <label for="feedback">Please leave your feedback:</label><br>
+  <textarea id="feedback" name="feedback" rows="4" cols="50"></textarea><br>
+  <button type="submit">Submit</button>
+</form>
+
 {% endif %}
 
 

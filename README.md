@@ -1,1 +1,1 @@
-## A web app that aims to help kids understand simple math word problems in an interactive way by converting the textual description of math word problem to an image , as well as testing their skill level with questions and assigning levels based on the answers and more..
+# educational_interactive_platform

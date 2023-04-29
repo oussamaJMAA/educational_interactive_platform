@@ -1,4 +1,4 @@
-from flask import  render_template, request, redirect, url_for, flash
+from flask import  render_template, request, redirect, url_for, flash , session
 from app.forms import RegistrationForm, LoginForm
 import aiohttp
 from io import BytesIO
@@ -14,12 +14,14 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
-from app.models import User 
+from app.models import User , Question, Answer
 from app import app , db , bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
 import os 
 import openai
-openai.api_key = "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"
+import base64
+import requests
+openai.api_key = "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"
 
 UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -157,6 +159,9 @@ def about():
         # If no image was uploaded, use the text input field value instead
         
         problem_text = request.form.get("text")
+        question = Question(question_text=problem_text, user_id=current_user.id)
+        db.session.add(question)
+        db.session.commit()
         generate_image(problem_text)
         # Generate the math problem image and return it to the user
         #img_url = generate_image2(request,problem_text)
@@ -168,14 +173,45 @@ def about():
         
         # Render the template with img_url
         return render_template("about.html", img_url=img_url, problem_text=problem_text)
+    #is_correct = session.get('is_correct')
+    #answer_text = session.get('answer_text')
+    #img_url = session.get('img_url1')
+    #correct_answer = session.get('correct_answer')
+    is_correct = request.args.get('is_correct')
+    answer_text = request.args.get('answer_text')
+    img_url = request.args.get('img_url1')
+    correct_answer = request.args.get('correct_answer')
+    print(f"answer_text: {answer_text}")
+    print(f"is_correct: {is_correct}")
+    print(f"correct_answer: {correct_answer}")
+    print(f"img_url: {img_url}")
+    # Open thumbnail image with PIL
+    
 
-    # Add this default return statement
-    return render_template("about.html")
+    if img_url:
+        # Render the template with img_url and answer_text
+        thumbnail_data = base64.b64decode(img_url.split(',')[1])
+        thumbnail_img = Image.open(BytesIO(thumbnail_data))
+
+# Resize thumbnail image
+        thumbnail_img.thumbnail((600, 600))
+
+# Convert image to bytes
+        thumbnail_img_bytes = BytesIO()
+        thumbnail_img.save(thumbnail_img_bytes, format='JPEG')
+        thumbnail_img_bytes = thumbnail_img_bytes.getvalue()
+
+# Encode image as base64 string
+        resized_url = 'data:image/jpeg;base64,' + base64.b64encode(thumbnail_img_bytes).decode('utf-8')
+        return render_template("about.html", img_url=resized_url, problem_text=request.form.get("problem_text"), answer_text=answer_text, is_correct=is_correct,correct_answer=correct_answer)
+
+    # Render the template without img_url or answer section
+    return render_template("about.html", problem_text="", is_correct=is_correct, answer_text="", img_url="") 
 
 
 
 
-   
+
 
 
     
@@ -241,24 +277,50 @@ def check_if_answer_is_correct(question,answer):
     response2.choices[0].text
     rep = response2.choices[0].text.replace('\n','')
     if rep == answer:
-        return True
+        return (True,rep)
     else:
-        return False
+        return (False,rep)
+
 @app.route('/answer', methods=['POST'])
 def check_answer():
     user = current_user
+    curr_level = user.level
     answer_text = request.form.get('answer')
     question = request.form.get('problem_text')
-    is_correct = check_if_answer_is_correct(question,answer_text) 
+    is_correct = check_if_answer_is_correct(question,answer_text)[0]
+    correct_answer = check_if_answer_is_correct(question,answer_text)[1]
     user.add_answer(answer_text, is_correct)
     user.nb_attempts += 1
     db.session.commit()
-    level = user.get_level()
-    if user.nb_attempts ==3:
-        user.level=level
+    if user.nb_attempts == 3:
+        level = user.get_level(curr_level)
+        user.level = level
+        user.nb_attempts = 0
         db.session.commit()  
-    return redirect(url_for('about'))
-    
+    img_url = request.form.get('img_url1')
+    print(img_url)
+    img_data = base64.b64decode(img_url.split(',')[1])
+# Open image with PIL
+    img = Image.open(BytesIO(img_data))
+# Resize image to thumbnail size
+    img.thumbnail((128, 128))
+# Convert image to bytes
+    img_bytes = BytesIO()
+    img.save(img_bytes, format='JPEG')
+    img_bytes = img_bytes.getvalue()
+# Encode image as base64 string
+    thumbnail_url = 'data:image/jpeg;base64,' + base64.b64encode(img_bytes).decode('utf-8')
+    # session['is_correct'] = is_correct
+    # session['answer_text'] = answer_text
+    # session['img_url1'] = thumbnail_url
+    # session['correct_answer'] = correct_answer
+    print(session)
+    return redirect(url_for('about', is_correct=is_correct, answer_text=answer_text, img_url1=thumbnail_url,correct_answer=correct_answer))
+    #return redirect(url_for('about'))
+
+
+  
+
 
 @app.route('/logout')
 def logout():
