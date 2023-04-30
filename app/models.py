@@ -78,8 +78,9 @@ class Feedback(db.Model):
     question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     feedback_text = db.Column(db.String(200), nullable=False)
+    type = db.Column(db.String(20), nullable=False)
     def __repr__(self):
-        return f"Fedback('{self.feedback_text}', '{self.question_id}')"
+        return f"Fedback('{self.feedback_text}', '{self.question_id}','{self.type}')"
 
 
     

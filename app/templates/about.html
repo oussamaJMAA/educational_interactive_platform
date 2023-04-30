@@ -49,7 +49,10 @@
         </div>
     <div class="form-group">
         <label for="text">Input Text:</label>
-        <input type="text" class="form-control" id="text" name="text"  value="{{ problem_text }}">
+        <!--<input type="text" class="form-control" id="text" name="text"  value="{{ problem_text }}"> -->
+        <input type="text" class="form-control" id="text" name="text" value="{{ problem_text or p }}">
+
+
     </div>
     <br>
     <div style="display: flex; align-items: center;">
@@ -63,7 +66,8 @@
 
 {% if img_url %}
 <div class="text-center">
-  <img src="{{ img_url }}" class="img-fluid" alt="Generated Image" height="300px" width="300px">
+  
+  <img src="{{ url_for('static', filename='uploads/' + img_url) }}" class="img-fluid" alt="Generated Image">
 </div>
 <form action="/answer" method="POST">
   <input type="hidden" name="img_url1" value="{{ img_url }}">
@@ -85,23 +89,28 @@
    
     <h4 class="alert alert-success">Good Job !</h4>
     <div class="mt-4">
-      <a href="/about" class="btn btn-primary">Retry</a>
+      <a href="/about" class="btn btn-primary">Go for another one ?</a>
     </div>
-    
-  
-    
-{% else %}
+    {% else %}
     <input type="text" class="form-control" id="answer" name="answer" value="{{ answer_text }}" >
     <input type="hidden" name="problem_text" value="{{problem_text}}">
 <button type="submit" class="btn btn-primary">Answer</button>
 </form>
 {% endif %}
+ 
 
-<form action="{{ url_for('feedback') }}" method="POST">
-  <label for="feedback">Please leave your feedback:</label><br>
-  <textarea id="feedback" name="feedback" rows="4" cols="50"></textarea><br>
-  <button type="submit">Submit</button>
+
+<form action="/feedback" method="POST">
+  <div class="form-group">
+    <h3>Please leave your feedback:</h3>
+    <textarea class="form-control" id="feedback" name="feedback" rows="4"></textarea>
+  </div>
+  <input type="hidden" name="problem_text" value="{{problem_text }}">
+  <input type="hidden" name="p" value="{{p}}">
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+
 
 {% endif %}
 

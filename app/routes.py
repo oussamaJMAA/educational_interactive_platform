@@ -6,6 +6,8 @@ from PIL import Image
 import asyncio
 import base64
 import pytesseract
+import pickle
+import shutil
 # import libraries for selenium
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -14,16 +16,80 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
-from app.models import User , Question, Answer
+from app.models import User , Question, Feedback
 from app import app , db , bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
 import os 
 import openai
 import base64
 import requests
-
+import gradio as gr
+openai.api_key = "api_key"
+import random
 UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
+def download_image(problem_text):
+    chrome_options = Options()
+    #chrome_options.add_argument("--headless")
+    '''
+    chrome_options.add_experimental_option("prefs", {
+    "download.default_directory": "C:/Users/oussa/Desktop/Educational_interactive_platform/app/static/uploads",
+    "download.prompt_for_download": False,
+    "download.directory_upgrade": True,
+    "safebrowsing.enabled": True
+})
+'''
+    chrome_driver_path = "C:/DsProjects/chromedriver.exe"
+    #gr.load("models/oussama120/wp-converter").launch(share=True)
+
+    #browser = webdriver.Chrome(executable_path=chrome_driver_path,options=chrome_options)
+    browser = webdriver.Chrome(executable_path=chrome_driver_path)
+    browser.get("http://127.0.0.1:7860")
+    wait_textarea = WebDriverWait(browser, 10).until(
+        EC.presence_of_element_located((By.TAG_NAME, "textarea"))
+    )
+    textarea = browser.find_element(By.TAG_NAME,'textarea')
+    textarea.send_keys(problem_text)
+    submit_button = browser.find_element(By.XPATH, '//button[text()="Submit"]')
+    submit_button.click()
+    #wait up to 10 seconds for the element to be clickable
+    div_element = WebDriverWait(browser, 100).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'button[aria-label="Download"]')))
+    # click the element
+    div_element.click()
+    time.sleep(5)
+    #renaming image
+    ############################################
+    os.chdir('C:/Users/oussa/Downloads/')
+  # Get a list of all files in the directory
+    files = os.listdir()
+
+    # Filter for image files (e.g., .jpg, .png, etc.)
+    image_files = [file for file in files if file.endswith('.jpg') or file.endswith('.png')]
+
+    # Sort the image files by creation time (newest to oldest)
+    image_files.sort(key=os.path.getctime, reverse=True)
+    #get 3 random number and characters concatenated
+    random_number = random.randint(100, 99999)
+    random_char = random.sample('abcdefghijklmnopqrstuvwxyz', 4)
+    print(random_char) 
+    #concatenate the random number and character
+    random_number_char = str(random_number) + ''.join(random_char)
+    # Rename the last image file to a new name
+    new_name = f'image {random_number_char}.jpg' # Replace with your desired new name
+    os.rename(image_files[0], new_name)
+    ############################################
+     # Source file path
+    src_path = f"C:/Users/oussa/Downloads/{new_name}"
+    
+    # Destination file path
+    dst_path = r"C:\Users\oussa\Desktop\Educational_interactive_platform\app\static\uploads"
+
+    # Copy the file from source to destination
+    shutil.copy(src_path, dst_path)
+   
+    return  f"image {random_number_char}.jpg"
 
 def generate_image(problem_text):
     chrome_options = Options()
@@ -42,11 +108,11 @@ def generate_image(problem_text):
     button.click()
     time.sleep(30)
 
-def generate_image2(request,problem_text):
-    #chrome_options = Options()
-    #chrome_options.add_argument("--headless")
-    #browser = webdriver.Chrome(options=chrome_options)
-    browser = webdriver.Chrome()
+def generate_image2(problem_text):
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    browser = webdriver.Chrome(options=chrome_options)
+    #browser = webdriver.Chrome()
     # Navigate to the website
     browser.get("https://huggingface.co/oussama120/wp-converter")
     input_field = WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.XPATH, '//input[@placeholder="Your sentence here..."]')))
@@ -71,10 +137,21 @@ def generate_image2(request,problem_text):
     browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
     # Get the base64-encoded image data from the 'src' attribute of the image element
-    img_element.screenshot('static/image4.png')
-    image_url = request.host_url + 'static/image4.png'
+    #img_element.screenshot(r'C:\Users\oussa\Desktop\Educational_interactive_platform\app\static\uploads\image1.png')
+    #image_url = 'C:/Users/oussa/Desktop/Educational_interactive_platform/app/static/uploads/image1.png'
+    #img_url = os.path.join('uploads', 'image1.png')
+    img_data = img_element.screenshot_as_base64
+
+    # Save the image to a file in the 'static/uploads' folder of the Flask app
+    filename = 'image1.png'
+    filepath = os.path.join('app', 'static', 'uploads', filename)
+    with open(filepath, 'wb') as f:
+        f.write(base64.b64decode(img_data))
+
+    # Return the URL to the image file, relative to the Flask app's static folder
+    img_url = 'uploads/' + filename
+    return img_url
     
-    return image_url
 
 
 
@@ -161,15 +238,18 @@ def about():
         question = Question(question_text=problem_text, user_id=current_user.id)
         db.session.add(question)
         db.session.commit()
-        generate_image(problem_text)
+        #img_url=generate_image2(problem_text)
         # Generate the math problem image and return it to the user
-        #img_url = generate_image2(request,problem_text)
-        
+        #img_url = generate_image2(problem_text)
+        img_url = download_image(problem_text)
+        print("img_url",img_url)
+        print("problem",problem_text)
+        '''
         data = {"inputs": problem_text}
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         img_url = loop.run_until_complete(get_image_url(data))
-        
+        '''
         # Render the template with img_url
         return render_template("about.html", img_url=img_url, problem_text=problem_text)
     #is_correct = session.get('is_correct')
@@ -180,14 +260,16 @@ def about():
     answer_text = request.args.get('answer_text')
     img_url = request.args.get('img_url1')
     correct_answer = request.args.get('correct_answer')
+    p = request.args.get('problem_text')
     print(f"answer_text: {answer_text}")
     print(f"is_correct: {is_correct}")
     print(f"correct_answer: {correct_answer}")
     print(f"img_url: {img_url}")
     # Open thumbnail image with PIL
     
-
+    
     if img_url:
+        '''
         # Render the template with img_url and answer_text
         thumbnail_data = base64.b64decode(img_url.split(',')[1])
         thumbnail_img = Image.open(BytesIO(thumbnail_data))
@@ -199,10 +281,11 @@ def about():
         thumbnail_img_bytes = BytesIO()
         thumbnail_img.save(thumbnail_img_bytes, format='JPEG')
         thumbnail_img_bytes = thumbnail_img_bytes.getvalue()
-
+        
 # Encode image as base64 string
         resized_url = 'data:image/jpeg;base64,' + base64.b64encode(thumbnail_img_bytes).decode('utf-8')
-        return render_template("about.html", img_url=resized_url, problem_text=request.form.get("problem_text"), answer_text=answer_text, is_correct=is_correct,correct_answer=correct_answer)
+        '''
+        return render_template("about.html", img_url=img_url, problem_text=request.form.get("problem_text"), answer_text=answer_text, is_correct=is_correct,correct_answer=correct_answer,p=p)
 
     # Render the template without img_url or answer section
     return render_template("about.html", problem_text="", is_correct=is_correct, answer_text="", img_url="") 
@@ -298,6 +381,7 @@ def check_answer():
         db.session.commit()  
     img_url = request.form.get('img_url1')
     print(img_url)
+    '''
     img_data = base64.b64decode(img_url.split(',')[1])
 # Open image with PIL
     img = Image.open(BytesIO(img_data))
@@ -313,12 +397,42 @@ def check_answer():
     # session['answer_text'] = answer_text
     # session['img_url1'] = thumbnail_url
     # session['correct_answer'] = correct_answer
-    print(session)
-    return redirect(url_for('about', is_correct=is_correct, answer_text=answer_text, img_url1=thumbnail_url,correct_answer=correct_answer))
+    '''
+    return redirect(url_for('about', is_correct=is_correct, answer_text=answer_text, img_url1=img_url,correct_answer=correct_answer,problem_text=question))
     #return redirect(url_for('about'))
 
 
   
+@app.route('/feedback', methods=["POST"])
+@login_required
+def feedback():
+    feedback_text = request.form.get("feedback")
+    problem_text = request.form.get("problem_text")
+    if problem_text == "":
+        problem_text = request.form.get("p")
+    print(f"feedback : {feedback_text}")
+    print(f"problem_text:{problem_text}")
+    print(os.getcwd())
+    # Load the pickled model file
+    with open(r'C:\Users\oussa\Desktop\Educational_interactive_platform\app\static\models\sentimentAnalysis_model.sav', 'rb') as f:
+        model = pickle.load(f)
+    # Load the pickled vectorizer file
+    with open(r'C:\Users\oussa\Desktop\Educational_interactive_platform\app\static\models\sentimentAnalysis_vectorizer.sav', 'rb') as f:
+        vectorizer = pickle.load(f)
+    # Vectorize the user's feedback
+    feedback_vector = vectorizer.transform([feedback_text])
+    # Predict the sentiment of the user's feedback
+    sentiment = model.predict(feedback_vector)[0]
+    print(f"sentiment : {sentiment}")
+    print(f"sentiment type {type(sentiment)}")
+    # Get the question object from the database
+    question = Question.query.filter_by(question_text=problem_text).first()
+    # Create a new feedback object
+    feedback = Feedback(question_id=question.id, user_id=current_user.id, feedback_text=feedback_text,type=str(sentiment))
+    db.session.add(feedback)
+    db.session.commit()
+    flash('Feedback submitted successfully!', 'success')
+    return redirect(url_for('home'))
 
 
 @app.route('/logout')
