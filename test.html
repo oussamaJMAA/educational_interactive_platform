@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Speech Recognition</title>
+  </head>
+  <body>
+    <h1>Speech Recognition</h1>
+    <button id="fr-button" onclick="startRecognition('fr-FR')">French Question ?</button>
+    <button id="en-button" onclick="startRecognition('en-US')">English Question ?</button>
+    <button id="ar-button" onclick="startRecognition('ar-SA')">Arabic Question ?</button>
+<label>You're saying ..</label>
+    <div id="result"></div>
+
+    <script>
+const result = document.getElementById("result");
+
+window.SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
+recognition.interimResults = true;
+
+recognition.addEventListener("result", (e) => {
+  const transcript = Array.from(e.results)
+    .map((result) => result[0])
+    .map((result) => result.transcript)
+    .join("");
+
+  result.innerHTML = transcript;
+});
+
+recognition.addEventListener("end", () => {
+  recognition.stop();
+});
+
+function startRecognition(lang) {
+  recognition.lang = lang;
+  recognition.start();
+}
+
+
+    </script>
+  </body>
+</html>

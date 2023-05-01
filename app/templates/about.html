@@ -21,7 +21,7 @@
         </div>
         <!-- End Page Banner -->
     <div class="container">
-      <h1 class="mt-5 mb-3">Image Generator</h1>
+      <h1 class="mt-5 mb-3">Write your Problem :</h1>
       <!---
       <form method="POST" class="mb-5">
         <div class="form-group">
@@ -40,6 +40,7 @@
 
 -->
 <form method="POST" enctype="multipart/form-data" class="mb-5">
+ 
     <div class="form-group">
         <label for="problem_image">Upload Image:</label>
         <div class="custom-file">
@@ -48,10 +49,12 @@
         </div>
         </div>
     <div class="form-group">
-        <label for="text">Input Text:</label>
+        <label for="text">Problem:</label>
         <!--<input type="text" class="form-control" id="text" name="text"  value="{{ problem_text }}"> -->
         <input type="text" class="form-control" id="text" name="text" value="{{ problem_text or p }}">
-
+        <span class="input-group-addon">
+          <i class="fas fa-microphone"></i>
+        </span>
 
     </div>
     <br>
@@ -95,6 +98,13 @@
     <input type="text" class="form-control" id="answer" name="answer" value="{{ answer_text }}" >
     <input type="hidden" name="problem_text" value="{{problem_text}}">
 <button type="submit" class="btn btn-primary">Answer</button>
+<!-- hint button-->
+<button type="button" class="btn btn-secondary" onclick="toggleHint()">Hint</button>
+
+<div id="hint-content" style="display:none">
+  <p>This is a hint for the answer : {{hint}}</p>
+</div>
+
 </form>
 {% endif %}
  
@@ -123,6 +133,26 @@
 
 {% block css %}
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<style>
+.input-group-addon {
+  background-color: #fff;
+  border: none;
+  padding: 0;
+}
+
+.input-group-addon i {
+  display: block;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+}
+
+.input-group-addon:hover i {
+  color: #007bff;
+}
+</style>
 {% endblock %}
 {% block js %}
        <script>
@@ -140,6 +170,14 @@
 			  }
 			}, 1000);
 		}
+    function toggleHint() {
+  var hintContent = document.getElementById("hint-content");
+  if (hintContent.style.display === "none") {
+    hintContent.style.display = "block";
+  } else {
+    hintContent.style.display = "none";
+  }
+}
 
 </script>
    {% endblock %}    <!-- Latest compiled and minified CSS -->

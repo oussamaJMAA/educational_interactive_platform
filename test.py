@@ -1,5 +1,5 @@
 # # import openai
-# # openai.api_key = "api_key"
+# # openai.api_key = "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"
 # # def get_result_of_answer(question,answer):
 # #     response = openai.Completion.create(
 # #     model="text-davinci-003",
@@ -61,10 +61,38 @@
 # # click the element
 # div_element.click()
 
+# import openai
+# import requests
 
-import os
+# def generate_image_from_text(text):
+#     openai.api_key = "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"
+#     response = openai.Completion.create(
+#     model="text-davinci-003",
+#     prompt="Translate this into english : "+text+"\n1.",
+#     temperature=0.3,
+#     max_tokens=100,
+#     top_p=1.0,
+#     frequency_penalty=0.0,
+#     presence_penalty=0.0
+#     )
+#     return response.choices[0].text
+# print(generate_image_from_text("يفيد لديه 13 بالونًا ، إيمي لديها 7 بالونات ، كم عدد البالونات التي يمتلكها ديفيد أكثر من إيمي"))
+# print(generate_image_from_text("saly has 4 apples , she gave her sister 2 apples , how many apples Saly has now ?"))
 
-download_path = "C:/Users/oussa/Downloads/"
-image_name = 'image.jpg'
-relative_path = os.path.relpath(download_path + image_name, 'app/templates')
-print(relative_path.replace('\\', '/'))
+
+import openai
+
+
+def grammar_correction(text):
+    openai.api_key = "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"
+    response = openai.Completion.create(
+    model="text-davinci-003",
+    prompt="Correct this to standard English: "+text+"\n1.",
+    temperature=0,
+    max_tokens=60,
+    top_p=1.0,
+    frequency_penalty=0.0,
+    presence_penalty=0.0
+    )
+    return response.choices[0].text
+print(grammar_correction("4 groups of children go on (1 school trip.There are 10 children in each group.How many children go on the trip?"))
