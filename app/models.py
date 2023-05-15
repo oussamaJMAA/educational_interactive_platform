@@ -8,6 +8,9 @@ def load_user(user_id):
 
 class User(db.Model,UserMixin):
     id = db.Column(db.Integer, primary_key=True)
+    firstname = db.Column(db.String(20), unique=False, nullable=False)
+    lastname = db.Column(db.String(20), unique=False, nullable=False)
+    role = db.Column(db.String(20), unique=False, nullable=True,default='student')
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
@@ -83,7 +86,15 @@ class Feedback(db.Model):
         return f"Fedback('{self.feedback_text}', '{self.question_id}','{self.type}')"
 
 
-    
+class Reviews(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    review_text = db.Column(db.String(200), nullable=False)
+    type = db.Column(db.String(20), nullable=True)
+    profession = db.Column(db.String(20), nullable=True)
+    user = db.relationship('User', backref='reviews')
+    def __repr__(self):
+        return f"Reviews('{self.review_text}', '{self.question_id}','{self.type}')"
 
 
 

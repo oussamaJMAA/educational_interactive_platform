@@ -12,7 +12,7 @@
                                 <li>
                                     <a href="index.html">Home</a>
                                 </li>
-                                <li>Login</li>
+                                <li>Word problems</li>
                             </ul>
                         </div>
                     </div>
@@ -42,20 +42,41 @@
 <form method="POST" enctype="multipart/form-data" class="mb-5">
  
     <div class="form-group">
-        <label for="problem_image">Upload Image:</label>
+      <h4> Recommended Problems : </h4>
+      {% for problem in recommended_problems %}
+      <div class="card">
+        <div class="card-body" style="background-color: #ADD8E6;">
+          <div style="display: flex; align-items: center;">
+            <h6 class="card-title">{{ problem }}</h6> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            <button type="button" class="btn btn-sm btn-outline-secondary copy-btn" data-clipboard-text="{{ problem }}">Copy</button>
+          </div>
+        </div>
+      </div>
+      <br>
+    {% endfor %}
+    
+   <br> 
+       <h4> <label for="problem_image">Upload Image:</label></h4>
         <div class="custom-file">
             <input type="file" class="custom-file-input" id="problem_image" name="problem_image">
             <label class="custom-file-label" for="problem_image">Choose file</label>
         </div>
         </div>
     <div class="form-group">
-        <label for="text">Problem:</label>
+        <h4><label for="text">Problem:</label></h4>
+        <!-- <button type="button" id="en-button" onclick="startRecognition('en-US')">English Question ?</button>
+        -->
+     
         <!--<input type="text" class="form-control" id="text" name="text"  value="{{ problem_text }}"> -->
-        <input type="text" class="form-control" id="text" name="text" value="{{ problem_text or p }}">
-        <span class="input-group-addon">
+        <div style="display: flex; align-items: center;">
+        <input type="text" class="form-control" id="text" name="text"  placeholder = "Enter your Problem "value="{{ problem_text or p }}">
+         &nbsp; &nbsp; <button type="button" id="en-button" onclick="startRecognition('en-US')">
           <i class="fas fa-microphone"></i>
-        </span>
-
+        </button>
+     
+        <div id="result"></div>
+      
+</div>
     </div>
     <br>
     <div style="display: flex; align-items: center;">
@@ -99,7 +120,7 @@
     <input type="hidden" name="problem_text" value="{{problem_text}}">
 <button type="submit" class="btn btn-primary">Answer</button>
 <!-- hint button-->
-<button type="button" class="btn btn-secondary" onclick="toggleHint()">Hint</button>
+<button style="display: none;" type="button" class="btn btn-secondary" onclick="toggleHint()">Hint</button>
 
 <div id="hint-content" style="display:none">
   <p>This is a hint for the answer : {{hint}}</p>
@@ -155,7 +176,20 @@
 </style>
 {% endblock %}
 {% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+
+<script>
+
+  var copyBtns = document.querySelectorAll('.copy-btn');
+  var clipboard = new ClipboardJS(copyBtns);
+  clipboard.on('success', function(e) {
+    e.clearSelection();
+  });
+</script>
+
+
        <script>
+        
 		function startTimer() {
 			document.getElementById("timer").style.display = "block";
 
@@ -179,7 +213,40 @@
   }
 }
 
+
 </script>
+
+<script>
+  const result = document.getElementById("text");
+  
+  window.SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognition = new SpeechRecognition();
+  recognition.interimResults = true;
+  
+  recognition.addEventListener("result", (e) => {
+    const transcript = Array.from(e.results)
+      .map((result) => result[0])
+      .map((result) => result.transcript)
+      .join("");
+  
+    result.value = transcript;
+  });
+  
+  recognition.addEventListener("end", () => {
+    recognition.stop();
+  });
+  
+  function startRecognition(lang) {
+    recognition.lang = lang;
+    recognition.start();
+  }
+ 
+  var button1 = document.getElementById("en-button");
+  button1.addEventListener("click", function(event) {
+    event.preventDefault();
+  });
+      </script>
    {% endblock %}    <!-- Latest compiled and minified CSS -->
 
 

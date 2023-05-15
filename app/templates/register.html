@@ -31,6 +31,36 @@
                     <form method="POST" action="">
                         {{form.hidden_tag() }}
                         <div class="form-group">
+                            {{form.firstname.label}}
+                            {% if form.firstname.errors %}
+                            {{ form.firstname(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.firstname.errors %}
+                                    <p class="text-danger">{{error}}</p>
+                                {% endfor %}
+                                
+                          </div>
+                           {% else %}
+                            {{form.firstname(class="form-control", placeholder="firstname")}}
+                            
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{form.lastname.label}}
+                            {% if form.lastname.errors %}
+                            {{ form.lastname(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.lastname.errors %}
+                                    <p class="text-danger">{{error}}</p>
+                                {% endfor %}
+                                
+                          </div>
+                           {% else %}
+                            {{form.lastname(class="form-control", placeholder="lastname")}}
+                            
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
                             {{form.username.label}}
                             {% if form.username.errors %}
                             {{ form.username(class="form-control form-control-lg is-invalid") }}

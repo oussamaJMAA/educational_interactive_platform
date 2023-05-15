@@ -4,6 +4,8 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo ,ValidationE
 from app.models import User
 # class registration form
 class RegistrationForm(FlaskForm):
+    firstname = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20)])
+    lastname = StringField('Last Name', validators=[DataRequired(), Length(min=2, max=20)])
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
     # DataRequired() is a validator that checks that the field is not submitted empty
     # Length() is a validator that checks that the field is within a certain length
